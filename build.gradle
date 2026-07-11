@@ -105,11 +105,9 @@ tasks.register("universalJar", ShadowJar) {
     dependsOn project(':fabric').tasks.named('jar')
     dependsOn project(':neoforge').tasks.named('jar')
     dependsOn project(':quilt').tasks.named('jar')
-    dependsOn project(':forge').tasks.named('jar')
     from zipTree(project(':fabric').tasks.named('jar').get().archiveFile)
     from zipTree(project(':neoforge').tasks.named('jar').get().archiveFile)
     from zipTree(project(':quilt').tasks.named('jar').get().archiveFile)
-    from zipTree(project(':forge').tasks.named('jar').get().archiveFile)
     
     doLast {
         copy {
