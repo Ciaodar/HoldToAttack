@@ -1,15 +1,21 @@
 plugins {
-    id 'net.fabricmc.fabric-loom' version '1.17-SNAPSHOT'
+    id 'dev.architectury.loom' version '1.7-SNAPSHOT'
 }
 
 dependencies {
     minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
+    mappings loom.officialMojangMappings()
     implementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
 
     implementation project(":common")
 
     // ModMenu
-    implementation "com.terraformersmc:modmenu:${rootProject.modmenu_version}"
+    modImplementation "com.terraformersmc:modmenu:${rootProject.modmenu_version}"
+
+    // Cloth Config
+    modCompileOnly("me.shedaniel.cloth:cloth-config-fabric:${rootProject.cloth_config_version}") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
 }
 
 processResources {
