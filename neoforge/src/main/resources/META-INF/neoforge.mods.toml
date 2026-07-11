@@ -16,14 +16,14 @@ logoFile="assets/holdtoattack/icon.png"
 [[dependencies.holdtoattack]]
     modId="neoforge"
     type="required"
-    versionRange="[20.2.0,)"
+    versionRange="[21.1,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.holdtoattack]]
     modId="minecraft"
     type="required"
-    versionRange="[1.20,)"
+    versionRange="[1.21.1,1.22)"
     ordering="NONE"
     side="BOTH"
 

@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[65,)"
+loaderVersion="[51,)"
 license="CC-BY-4.0"
 
 [[mods]]
@@ -13,14 +13,14 @@ logoFile="assets/holdtoattack/icon.png"
 [[dependencies.holdtoattack]]
     modId="forge"
     mandatory=true
-    versionRange="[65,)"
+    versionRange="[51,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.holdtoattack]]
     modId="minecraft"
     mandatory=true
-    versionRange="[26.2,26.3)"
+    versionRange="[1.21.1,1.22)"
     ordering="NONE"
     side="BOTH"
 
