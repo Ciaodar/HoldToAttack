@@ -1,10 +1,10 @@
 plugins {
-    id 'dev.architectury.loom' version '1.17-SNAPSHOT'
+    id 'dev.architectury.loom' version '1.7-SNAPSHOT'
 }
 
 dependencies {
     minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
-    mappings "net.fabricmc:yarn:${rootProject.yarn_mappings}:v2"
+    mappings loom.officialMojangMappings()
     
     // We don't even need mappings specified because Fabric Loom handles 26.2 automatically
     
