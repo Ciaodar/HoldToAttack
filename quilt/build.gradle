@@ -1,0 +1,24 @@
+plugins {
+    id 'net.fabricmc.fabric-loom' version '1.17.14'
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
+    
+    // We don't even need mappings specified because Fabric Loom handles 26.2 automatically
+    
+    implementation project(":common")
+    implementation project(":fabric")
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("quilt.mod.json") {
+        expand "version": project.version
+    }
+}
+
+tasks.named("jar", Jar).configure {
+    from project(":common").sourceSets.main.output
+}

@@ -45,8 +45,8 @@ To build both the Fabric and NeoForge versions of the mod, run the following com
 ```
 
 This will automatically generate the jars in the following directories:
-- **Fabric:** `fabric/build/libs/HoldToAttack-fabric-1.1.0.jar`
-- **NeoForge:** `neoforge/build/libs/HoldToAttack-neoforge-1.1.0.jar`
+- **Fabric:** `fabric/build/libs/HoldToAttack-fabric-1.1.1.jar`
+- **NeoForge:** `neoforge/build/libs/HoldToAttack-neoforge-1.1.1.jar`
 
 ---
 *Created with ❤️ for the Minecraft community.*

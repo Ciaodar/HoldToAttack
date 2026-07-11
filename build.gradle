@@ -1,7 +1,63 @@
+plugins {
+    id "com.gradleup.shadow" version "8.3.3"
+}
+
+def incrementVersion(String type) {
+    def propsFile = file("gradle.properties")
+    def content = propsFile.text
+    def matcher = content =~ /mod_version=(\d+)\.(\d+)\.(\d+)/
+    if (matcher.find()) {
+        def major = matcher.group(1)
+        def minor = matcher.group(2).toInteger()
+        def patch = matcher.group(3).toInteger()
+        
+        if (type == "hotfix") {
+            patch++
+        } else if (type == "update") {
+            minor++
+            patch = 0
+        }
+        
+        def newVersion = "${major}.${minor}.${patch}"
+        def newContent = content.replaceFirst(/mod_version=\d+\.\d+\.\d+/, "mod_version=${newVersion}")
+        propsFile.text = newContent
+        println "Incremented $type version to $newVersion"
+        return newVersion
+    }
+    return project.property("mod_version")
+}
+
+def isHotfix = gradle.startParameter.taskNames.contains("hotfix")
+def isUpdate = gradle.startParameter.taskNames.contains("update")
+
+if (isHotfix || isUpdate) {
+    def newVer = incrementVersion(isHotfix ? "hotfix" : "update")
+    project.ext.mod_version = newVer
+}
+version = rootProject.mod_version
+
+task hotfix {
+    group = "build"
+    description = "Increments patch version and builds the project"
+}
+
+task update {
+    group = "build"
+    description = "Increments minor version, resets patch, and builds the project"
+}
+
+gradle.projectsEvaluated {
+    hotfix.dependsOn subprojects.collect { it.tasks.getByName('build') }
+    hotfix.dependsOn universalJar
+    update.dependsOn subprojects.collect { it.tasks.getByName('build') }
+    update.dependsOn universalJar
+}
+
 subprojects {
     apply plugin: 'java'
     version = rootProject.mod_version
     group = rootProject.maven_group
+    base.archivesName = "HoldToAttack-${project.name}"
 
     tasks.withType(JavaCompile).configureEach {
         it.options.release = 25
@@ -12,13 +68,55 @@ subprojects {
             languageVersion = JavaLanguageVersion.of(25)
         }
     }
+
+    tasks.named('build').configure {
+        doLast {
+            copy {
+                from layout.buildDirectory.dir("libs")
+                into new File(System.getProperty("user.home"), "Downloads")
+                include "HoldToAttack-*-${project.version}.jar"
+                exclude "*-dev.jar", "*-sources.jar", "*-common-*.jar"
+            }
+        }
+    }
 }
+
+
+
 
 allprojects {
     repositories {
         maven { url "https://maven.fabricmc.net/" }
         maven { url "https://maven.neoforged.net/releases/" }
+        maven { url "https://maven.minecraftforge.net/" }
+        maven { url "https://repo.spongepowered.org/repository/maven-public/" }
         maven { url "https://maven.shedaniel.me/" }
         maven { url "https://maven.terraformersmc.com/" }
     }
 }
+
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
+tasks.register("universalJar", ShadowJar) {
+    archiveBaseName.set("HoldToAttack")
+    archiveClassifier.set("universal-${project.property('minecraft_version')}")
+    archiveVersion.set(project.version.toString())
+    destinationDirectory.set(layout.buildDirectory.dir("libs"))
+    dependsOn project(':fabric').tasks.named('jar')
+    dependsOn project(':neoforge').tasks.named('jar')
+    dependsOn project(':quilt').tasks.named('jar')
+    dependsOn project(':forge').tasks.named('jar')
+    from zipTree(project(':fabric').tasks.named('jar').get().archiveFile)
+    from zipTree(project(':neoforge').tasks.named('jar').get().archiveFile)
+    from zipTree(project(':quilt').tasks.named('jar').get().archiveFile)
+    from zipTree(project(':forge').tasks.named('jar').get().archiveFile)
+    
+    doLast {
+        copy {
+            from archiveFile
+            into new File(System.getProperty("user.home"), "Downloads")
+        }
+    }
+}
+
+

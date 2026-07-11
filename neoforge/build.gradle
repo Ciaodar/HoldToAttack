@@ -14,9 +14,9 @@ neoForge {
 }
 
 dependencies {
-    implementation project(":common")
-
-    implementation "me.shedaniel.cloth:cloth-config-neoforge:${rootProject.cloth_config_version}"
+    implementation(project(":common")) {
+        exclude group: "me.shedaniel.cloth"
+    }
 }
 
 processResources {
@@ -25,4 +25,8 @@ processResources {
     filesMatching("META-INF/neoforge.mods.toml") {
         expand "version": project.version
     }
+}
+
+tasks.named("jar", Jar) {
+    from project(":common").sourceSets.main.output
 }

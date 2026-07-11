@@ -19,14 +19,14 @@ public abstract class MinecraftClientMixin {
 
     @Shadow protected abstract boolean startAttack();
 
-    @Inject(method = "tick", at = @At("HEAD"))
+    @Inject(method = "tick", at = @At("TAIL"))
     private void onTick(CallbackInfo ci) {
-        if (!com.holdtoattack.config.HoldToAttackConfig.get().enabled) return;
+        if (!com.holdtoattack.config.HoldToAttackConfig.isEnabled()) return;
 
         if (this.player != null && this.options.keyAttack.isDown()) {
             if (this.player.getAttackStrengthScale(0.0F) >= 1.0F) {
                 boolean hasTarget = this.hitResult != null && this.hitResult.getType() != HitResult.Type.MISS;
-                if (!com.holdtoattack.config.HoldToAttackConfig.get().requireTarget || hasTarget) {
+                if (!com.holdtoattack.config.HoldToAttackConfig.isRequireTarget() || hasTarget) {
                     this.startAttack();
                 }
             }

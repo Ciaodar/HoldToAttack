@@ -5,10 +5,10 @@
   "name": "Hold To Attack",
   "description": "Auto-attacks when holding left click and cooldown is full.",
   "authors": [
-    "Me!"
+    "Ciaodar"
   ],
   "contact": {},
-  "license": "CC0-1.0",
+  "license": "CC-BY-4.0",
   "icon": "assets/holdtoattack/icon.png",
   "environment": "client",
   "entrypoints": {
@@ -16,7 +16,7 @@
       "com.holdtoattack.fabric.HoldToAttackClient"
     ],
     "modmenu": [
-      "com.holdtoattack.fabric.config.ModMenuIntegration"
+      "com.holdtoattack.fabric.config.HoldToAttackModMenuImpl"
     ]
   },
   "mixins": [
@@ -24,7 +24,7 @@
   ],
   "depends": {
     "fabricloader": ">=0.19.3",
-    "minecraft": ">=1.21.1",
+    "minecraft": ">=1.20",
     "java": ">=21",
     "fabric-api": "*"
   }
