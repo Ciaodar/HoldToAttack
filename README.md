@@ -1,7 +1,7 @@
 # Hold To Attack
 
 <div align="center">
-  <img src="https://img.shields.io/badge/Minecraft-26.2-brightgreen" alt="Minecraft Version">
+  <img src="https://img.shields.io/badge/Minecraft-26.3-brightgreen" alt="Minecraft Version">
   <img src="https://img.shields.io/badge/Loader-Fabric%20%7C%20NeoForge-blue" alt="Mod Loader">
   <img src="https://img.shields.io/badge/License-CC0-yellow" alt="License">
 </div>
@@ -45,6 +45,7 @@ To build both the Fabric and NeoForge versions of the mod, run the following com
 ```
 
 This will automatically generate the jars in the following directories:
+- **Universal (Fabric, Quilt & NeoForge):** `build/libs/HoldToAttack-1.1.0-universal-26.3.jar`
 - **Fabric:** `fabric/build/libs/HoldToAttack-fabric-1.1.0.jar`
 - **NeoForge:** `neoforge/build/libs/HoldToAttack-neoforge-1.1.0.jar`
 
