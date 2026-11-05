@@ -27,6 +27,17 @@ tasks.named('jar', Jar).configure {
     archiveFileName = "HoldToAttack-${rootProject.mod_version}-${project.name}-${rootProject.minecraft_version}.jar"
 }
 
+tasks.register('quiltJar', Copy) {
+    dependsOn tasks.named('jar')
+    from tasks.named('jar')
+    into layout.buildDirectory.dir("libs")
+    rename { "HoldToAttack-${rootProject.mod_version}-quilt-${rootProject.minecraft_version}.jar" }
+}
+
+tasks.named('build') {
+    dependsOn 'quiltJar'
+}
+
 processResources {
     from(project(":common").sourceSets.main.resources)
     inputs.property "version", project.version

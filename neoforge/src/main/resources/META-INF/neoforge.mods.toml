@@ -16,7 +16,7 @@ logoFile="assets/holdtoattack/icon.png"
 [[dependencies.holdtoattack]]
     modId="neoforge"
     type="required"
-    versionRange="[26.2.0,)"
+    versionRange="[26.1, 26.2.999]"
     ordering="NONE"
     side="BOTH"
 

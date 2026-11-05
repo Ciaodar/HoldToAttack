@@ -28,7 +28,7 @@ allprojects {
 }
 
 tasks.register('universalJar', Jar) {
-    dependsOn ':fabric:jar', ':neoforge:jar'
+    dependsOn ':fabric:jar', ':neoforge:jar', ':fabric:quiltJar'
 
     archiveFileName = "HoldToAttack-${rootProject.mod_version}-universal-${rootProject.minecraft_version}.jar"
     destinationDirectory = layout.buildDirectory.dir("libs")
