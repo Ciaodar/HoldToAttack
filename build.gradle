@@ -1,4 +1,5 @@
 plugins {
+    id 'base'
     id "com.gradleup.shadow" version "8.3.3"
 }
 
@@ -68,21 +69,7 @@ subprojects {
             languageVersion = JavaLanguageVersion.of(21)
         }
     }
-
-    tasks.named('build').configure {
-        doLast {
-            copy {
-                from layout.buildDirectory.dir("libs")
-                into new File(System.getProperty("user.home"), "Downloads")
-                include "HoldToAttack-*-${project.version}.jar"
-                exclude "*-dev.jar", "*-sources.jar", "*-common-*.jar"
-            }
-        }
-    }
 }
-
-
-
 
 allprojects {
     repositories {
@@ -98,23 +85,16 @@ allprojects {
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 tasks.register("universalJar", ShadowJar) {
-    archiveBaseName.set("HoldToAttack")
-    archiveClassifier.set("universal-${project.property('minecraft_version')}")
-    archiveVersion.set(project.version.toString())
     destinationDirectory.set(layout.buildDirectory.dir("libs"))
     dependsOn project(':fabric').tasks.named('jar')
     dependsOn project(':neoforge').tasks.named('jar')
     dependsOn project(':quilt').tasks.named('jar')
-    from zipTree(project(':fabric').tasks.named('jar').get().archiveFile)
-    from zipTree(project(':neoforge').tasks.named('jar').get().archiveFile)
-    from zipTree(project(':quilt').tasks.named('jar').get().archiveFile)
-    
-    doLast {
-        copy {
-            from archiveFile
-            into new File(System.getProperty("user.home"), "Downloads")
-        }
-    }
+    from zipTree(project(':fabric').tasks.named('jar').flatMap { it.archiveFile })
+    from zipTree(project(':neoforge').tasks.named('jar').flatMap { it.archiveFile })
+    from zipTree(project(':quilt').tasks.named('jar').flatMap { it.archiveFile })
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
-
+tasks.named("universalJar", ShadowJar).configure {
+    archiveFileName = "HoldToAttack-${rootProject.mod_version}-universal-${rootProject.minecraft_version}.jar"
+}

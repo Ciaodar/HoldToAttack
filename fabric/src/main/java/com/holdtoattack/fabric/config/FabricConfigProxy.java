@@ -20,4 +20,9 @@ public class FabricConfigProxy implements IConfigProxy {
     public boolean isRequireTarget() {
         return config.requireTarget;
     }
+
+    @Override
+    public boolean isKeepAttackFocus() {
+        return config.keepAttackFocus;
+    }
 }

@@ -17,7 +17,7 @@
         "intermediate_mappings": "net.fabricmc:intermediary",
         "entrypoints": {
             "client": [
-                "com.holdtoattack.fabric.HoldToAttackFabric"
+                "com.holdtoattack.fabric.HoldToAttackClient"
             ]
         },
         "depends": [

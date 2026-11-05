@@ -27,6 +27,7 @@ processResources {
     }
 }
 
-tasks.named("jar", Jar) {
+tasks.named('jar', Jar).configure {
+    archiveFileName = "HoldToAttack-${rootProject.mod_version}-neoforge-${rootProject.minecraft_version}.jar"
     from project(":common").sourceSets.main.output
 }
