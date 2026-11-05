@@ -1,5 +1,5 @@
 plugins {
-    id 'net.fabricmc.fabric-loom' version '1.17-SNAPSHOT'
+    id 'net.fabricmc.fabric-loom' version '1.18.1'
 }
 
 dependencies {
@@ -20,6 +20,7 @@ processResources {
     }
 }
 
-tasks.named("jar", Jar) {
+tasks.named('jar', Jar).configure {
+    archiveFileName = "HoldToAttack-${rootProject.mod_version}-fabric-${rootProject.minecraft_version}.jar"
     from project(":common").sourceSets.main.output
 }
