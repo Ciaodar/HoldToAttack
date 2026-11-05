@@ -1,3 +1,7 @@
+plugins {
+    id 'base'
+}
+
 subprojects {
     apply plugin: 'java'
     version = rootProject.mod_version
@@ -21,4 +25,32 @@ allprojects {
         maven { url "https://maven.shedaniel.me/" }
         maven { url "https://maven.terraformersmc.com/" }
     }
+}
+
+tasks.register('universalJar', Jar) {
+    dependsOn ':fabric:jar', ':neoforge:jar'
+
+    archiveFileName = "HoldToAttack-${rootProject.mod_version}-universal-${rootProject.minecraft_version}.jar"
+    destinationDirectory = layout.buildDirectory.dir("libs")
+
+    from zipTree(project(':fabric').tasks.named('jar').flatMap { it.archiveFile })
+    from zipTree(project(':neoforge').tasks.named('jar').flatMap { it.archiveFile })
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    manifest {
+        attributes([
+            'Specification-Title'   : 'Hold To Attack',
+            'Specification-Vendor'  : 'Ciaodar',
+            'Specification-Version' : rootProject.mod_version,
+            'Implementation-Title'  : 'Hold To Attack Universal',
+            'Implementation-Version': "${rootProject.mod_version}-universal-${rootProject.minecraft_version}",
+            'Implementation-Vendor' : 'Ciaodar',
+            'Built-On-Minecraft'    : rootProject.minecraft_version
+        ])
+    }
+}
+
+tasks.named('build') {
+    dependsOn 'universalJar'
 }
