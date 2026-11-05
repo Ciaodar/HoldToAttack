@@ -15,6 +15,7 @@ public class HoldToAttackConfig {
 
     public boolean enabled = true;
     public boolean requireTarget = true;
+    public boolean keepAttackFocus = true;
 
     private static HoldToAttackConfig instance;
 
@@ -76,5 +77,12 @@ public class HoldToAttackConfig {
             return proxy.isRequireTarget();
         }
         return get().requireTarget;
+    }
+
+    public static boolean isKeepAttackFocus() {
+        if (proxy != null) {
+            return proxy.isKeepAttackFocus();
+        }
+        return get().keepAttackFocus;
     }
 }

@@ -36,6 +36,12 @@ public class ModMenuIntegration implements ModMenuApi {
                     .setSaveConsumer(newValue -> HoldToAttackConfig.get().requireTarget = newValue)
                     .build());
 
+            general.addEntry(entryBuilder.startBooleanToggle(Component.literal("Keep Attack Focus"), HoldToAttackConfig.get().keepAttackFocus)
+                    .setDefaultValue(true)
+                    .setTooltip(Component.literal("After attacking an entity, ignore block mining/interaction until the attack key is released"))
+                    .setSaveConsumer(newValue -> HoldToAttackConfig.get().keepAttackFocus = newValue)
+                    .build());
+
             return builder.build();
         };
     }

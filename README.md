@@ -12,6 +12,7 @@
 
 - **Auto-Attack:** Automatically attacks the moment your attack cooldown reaches 100% while holding the attack key.
 - **Require Target (Configurable):** By default, the mod only attacks if you are actually looking at a valid entity. If you look at thin air, you won't swing. This prevents accidental swings when fighting!
+- **Keep Attack Focus (Configurable):** Once an attack has hit an entity, block mining and interaction are ignored until the attack key is released, preventing accidental block destruction during combat.
 - **Global Toggle:** You can quickly enable or disable the entire mod from the configuration menu—perfect for switching between PvE and PvP sessions without having to restart the game.
 - **Cross-Platform:** Supports both **Fabric** and **NeoForge** loaders seamlessly using a Native Multi-Loader structure.
 
@@ -27,6 +28,7 @@ The mod features a fully integrated configuration screen powered by **Cloth Conf
 | :--- | :--- | :--- |
 | **Enabled** | Master switch for the mod. Turn this off to completely disable the auto-attack feature. | `True` |
 | **Require Target** | If enabled, the mod will only auto-attack when you are aiming directly at a valid entity (mob/player). | `True` |
+| **Keep Attack Focus** | If enabled, once an attack has hit an entity, block mining and interaction are ignored until the attack button is released. | `True` |
 
 ## 🛠️ For Developers / Building from Source
 
@@ -45,9 +47,9 @@ To build both the Fabric and NeoForge versions of the mod, run the following com
 ```
 
 This will automatically generate the jars in the following directories:
-- **Universal (Fabric, Quilt & NeoForge):** `build/libs/HoldToAttack-1.1.0-universal-26.3.jar`
-- **Fabric:** `fabric/build/libs/HoldToAttack-fabric-1.1.0.jar`
-- **NeoForge:** `neoforge/build/libs/HoldToAttack-neoforge-1.1.0.jar`
+- **Universal (Fabric, Quilt & NeoForge):** `build/libs/HoldToAttack-1.3.26-universal-26.3.jar`
+- **Fabric:** `fabric/build/libs/HoldToAttack-fabric-1.3.26.jar`
+- **NeoForge:** `neoforge/build/libs/HoldToAttack-neoforge-1.3.26.jar`
 
 ---
 *Created with ❤️ for the Minecraft community.*
