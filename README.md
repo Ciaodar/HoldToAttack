@@ -40,7 +40,7 @@ This project uses a **Native Multi-Loader** architecture to support both Fabric 
 - `neoforge/` - NeoForge-specific entrypoints and UI registrations.
 
 ### How to Build
-To build both the Fabric and NeoForge versions of the mod, run the following command in your terminal:
+To build the Fabric, Quilt, NeoForge, and Universal versions of the mod, run the following command in your terminal:
 
 ```bash
 ./gradlew build
@@ -49,6 +49,7 @@ To build both the Fabric and NeoForge versions of the mod, run the following com
 This will automatically generate the jars in the following directories:
 - **Universal (Fabric, Quilt & NeoForge):** `build/libs/HoldToAttack-2.0.26.3-universal-26.3.jar`
 - **Fabric:** `fabric/build/libs/HoldToAttack-2.0.26.3-fabric-26.3.jar`
+- **Quilt:** `fabric/build/libs/HoldToAttack-2.0.26.3-quilt-26.3.jar`
 - **NeoForge:** `neoforge/build/libs/HoldToAttack-2.0.26.3-neoforge-26.3.jar`
 
 ---
