@@ -43,12 +43,13 @@ This project uses a **Native Multi-Loader** architecture to support both Fabric 
 To build both the Fabric and NeoForge versions of the mod, run the following command in your terminal:
 
 ```bash
-./gradlew build
+./gradlew build universalJar
 ```
 
 This will automatically generate the jars in the following directories:
-- **Fabric:** `fabric/build/libs/HoldToAttack-fabric-1.3.26.jar`
-- **NeoForge:** `neoforge/build/libs/HoldToAttack-neoforge-1.3.26.jar`
+- **Fabric:** `fabric/build/libs/HoldToAttack-2.0.26.2-fabric-26.2.jar`
+- **NeoForge:** `neoforge/build/libs/HoldToAttack-2.0.26.2-neoforge-26.2.jar`
+- **Universal:** `build/libs/HoldToAttack-2.0.26.2-universal-26.2.jar`
 
 ---
 *Created with ❤️ for the Minecraft community.*

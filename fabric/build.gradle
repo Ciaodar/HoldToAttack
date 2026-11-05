@@ -3,7 +3,7 @@ plugins {
 }
 
 base {
-    archivesName = "HoldToAttack-${project.name}"
+    archivesName = "HoldToAttack"
 }
 
 dependencies {
@@ -21,6 +21,10 @@ dependencies {
 
 tasks.named('compileJava', JavaCompile).configure {
     source(project(":common").sourceSets.main.allJava)
+}
+
+tasks.named('jar', Jar).configure {
+    archiveFileName = "HoldToAttack-${rootProject.mod_version}-${project.name}-${rootProject.minecraft_version}.jar"
 }
 
 processResources {
