@@ -11,12 +11,30 @@ import java.io.IOException;
 public class HoldToAttackConfig {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static File file;
-    
+    private static IConfigProxy proxy;
+
     // Config fields
     public boolean enabled = true;
     public boolean requireTarget = true;
+    public boolean keepAttackFocus = true;
 
     private static HoldToAttackConfig instance;
+
+    public static void setProxy(IConfigProxy proxyInstance) {
+        proxy = proxyInstance;
+    }
+
+    public static boolean isEnabled() {
+        return proxy != null ? proxy.isEnabled() : get().enabled;
+    }
+
+    public static boolean isRequireTarget() {
+        return proxy != null ? proxy.isRequireTarget() : get().requireTarget;
+    }
+
+    public static boolean isKeepAttackFocus() {
+        return proxy != null ? proxy.isKeepAttackFocus() : get().keepAttackFocus;
+    }
 
     public static void init(File configDir) {
         file = new File(configDir, "holdtoattack.json");
@@ -24,7 +42,7 @@ public class HoldToAttackConfig {
     }
 
     public static void load() {
-        if (file.exists()) {
+        if (file != null && file.exists()) {
             try (FileReader reader = new FileReader(file)) {
                 instance = GSON.fromJson(reader, HoldToAttackConfig.class);
             } catch (Exception e) {
@@ -35,13 +53,16 @@ public class HoldToAttackConfig {
             instance = new HoldToAttackConfig();
             save();
         }
-        
+
         if (instance == null) {
             instance = new HoldToAttackConfig();
         }
     }
 
     public static void save() {
+        if (file == null) {
+            return;
+        }
         try (FileWriter writer = new FileWriter(file)) {
             GSON.toJson(instance, writer);
         } catch (IOException e) {
