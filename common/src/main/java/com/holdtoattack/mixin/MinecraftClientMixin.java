@@ -1,5 +1,6 @@
 package com.holdtoattack.mixin;
 
+import com.holdtoattack.config.HoldToAttackConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.Options;
@@ -21,12 +22,12 @@ public abstract class MinecraftClientMixin {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void onTick(CallbackInfo ci) {
-        if (!com.holdtoattack.config.HoldToAttackConfig.get().enabled) return;
+        if (!HoldToAttackConfig.isEnabled()) return;
 
         if (this.player != null && this.options.keyAttack.isDown()) {
             if (this.player.getAttackStrengthScale(0.0F) >= 1.0F) {
                 boolean hasTarget = this.hitResult != null && this.hitResult.getType() != HitResult.Type.MISS;
-                if (!com.holdtoattack.config.HoldToAttackConfig.get().requireTarget || hasTarget) {
+                if (!HoldToAttackConfig.isRequireTarget() || hasTarget) {
                     this.startAttack();
                 }
             }

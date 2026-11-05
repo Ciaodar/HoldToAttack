@@ -11,12 +11,16 @@ import java.io.IOException;
 public class HoldToAttackConfig {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static File file;
-    
-    // Config fields
+    private static IConfigProxy proxy;
+
     public boolean enabled = true;
     public boolean requireTarget = true;
 
     private static HoldToAttackConfig instance;
+
+    public static void setProxy(IConfigProxy configProxy) {
+        proxy = configProxy;
+    }
 
     public static void init(File configDir) {
         file = new File(configDir, "holdtoattack.json");
@@ -24,6 +28,10 @@ public class HoldToAttackConfig {
     }
 
     public static void load() {
+        if (file == null) {
+            instance = new HoldToAttackConfig();
+            return;
+        }
         if (file.exists()) {
             try (FileReader reader = new FileReader(file)) {
                 instance = GSON.fromJson(reader, HoldToAttackConfig.class);
@@ -35,13 +43,13 @@ public class HoldToAttackConfig {
             instance = new HoldToAttackConfig();
             save();
         }
-        
         if (instance == null) {
             instance = new HoldToAttackConfig();
         }
     }
 
     public static void save() {
+        if (file == null) return;
         try (FileWriter writer = new FileWriter(file)) {
             GSON.toJson(instance, writer);
         } catch (IOException e) {
@@ -54,5 +62,19 @@ public class HoldToAttackConfig {
             instance = new HoldToAttackConfig();
         }
         return instance;
+    }
+
+    public static boolean isEnabled() {
+        if (proxy != null) {
+            return proxy.isEnabled();
+        }
+        return get().enabled;
+    }
+
+    public static boolean isRequireTarget() {
+        if (proxy != null) {
+            return proxy.isRequireTarget();
+        }
+        return get().requireTarget;
     }
 }

@@ -7,7 +7,7 @@ issueTrackerURL=""
 modId="holdtoattack"
 version="${version}"
 displayName="Hold To Attack"
-authors="Me!"
+authors="Ciaodar"
 description='''
 Auto-attacks when holding left click and cooldown is full.
 '''
@@ -17,6 +17,13 @@ logoFile="assets/holdtoattack/icon.png"
     modId="neoforge"
     type="required"
     versionRange="[26.3.0,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.holdtoattack]]
+    modId="minecraft"
+    type="required"
+    versionRange="[26.3,)"
     ordering="NONE"
     side="BOTH"
 

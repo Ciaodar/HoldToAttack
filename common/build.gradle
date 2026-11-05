@@ -4,10 +4,5 @@ plugins {
 
 dependencies {
     minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
-    
     implementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
-    
-    api("me.shedaniel.cloth:cloth-config-fabric:${rootProject.cloth_config_version}") {
-        exclude(group: "net.fabricmc.fabric-api")
-    }
 }

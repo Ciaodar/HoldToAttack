@@ -19,8 +19,6 @@ neoForge {
 
 dependencies {
     compileOnly project(":common")
-
-    implementation "me.shedaniel.cloth:cloth-config-neoforge:${rootProject.cloth_config_version}"
 }
 
 tasks.named('compileJava', JavaCompile).configure {
