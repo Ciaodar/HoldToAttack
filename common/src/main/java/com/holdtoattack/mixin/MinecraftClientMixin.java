@@ -37,17 +37,15 @@ public abstract class MinecraftClientMixin {
 
         if (this.player != null && this.options != null && this.options.keyAttack.isDown()) {
             if (this.player.getAttackStrengthScale(0.0F) >= 1.0F) {
-                if (this.holdtoattack$attackLocked) {
-                    boolean canAttack = this.hitResult != null && (this.hitResult.getType() == HitResult.Type.ENTITY
-                            || (!HoldToAttackConfig.isRequireTarget() && this.hitResult.getType() == HitResult.Type.MISS));
-                    if (canAttack) {
-                        this.startAttack();
-                    }
+                boolean canAttack;
+                if (HoldToAttackConfig.isRequireTarget()) {
+                    canAttack = this.hitResult != null && this.hitResult.getType() == HitResult.Type.ENTITY;
                 } else {
-                    boolean hasTarget = this.hitResult != null && this.hitResult.getType() != HitResult.Type.MISS;
-                    if (!HoldToAttackConfig.isRequireTarget() || hasTarget) {
-                        this.startAttack();
-                    }
+                    canAttack = this.hitResult == null || this.hitResult.getType() != HitResult.Type.BLOCK;
+                }
+
+                if (canAttack) {
+                    this.startAttack();
                 }
             }
         }
@@ -70,11 +68,12 @@ public abstract class MinecraftClientMixin {
             }
         }
 
-        if (this.options != null && this.options.keyAttack.isDown()
-                && this.hitResult != null && this.hitResult.getType() == HitResult.Type.ENTITY) {
-            this.holdtoattack$attackLocked = true;
-            if (this.gameMode != null && this.gameMode.isDestroying()) {
-                this.gameMode.stopDestroyBlock();
+        if (this.options != null && this.options.keyAttack.isDown()) {
+            if (this.hitResult == null || this.hitResult.getType() != HitResult.Type.BLOCK) {
+                this.holdtoattack$attackLocked = true;
+                if (this.gameMode != null && this.gameMode.isDestroying()) {
+                    this.gameMode.stopDestroyBlock();
+                }
             }
         }
     }
