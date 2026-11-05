@@ -20,6 +20,11 @@ processResources {
     }
 }
 
-tasks.named("jar", Jar).configure {
+tasks.named('jar', Jar).configure {
+    archiveFileName = "HoldToAttack-${rootProject.mod_version}-quilt-${rootProject.minecraft_version}.jar"
     from project(":common").sourceSets.main.output
+}
+
+tasks.named('remapJar').configure {
+    archiveFileName = "HoldToAttack-${rootProject.mod_version}-quilt-${rootProject.minecraft_version}.jar"
 }
